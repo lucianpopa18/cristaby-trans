@@ -287,6 +287,12 @@
     .sobre-icon {
       font-size: 3rem;
       margin-bottom: 1.5rem;
+      color: var(--gold);
+    }
+    .sobre-icon svg {
+      width: 52px;
+      height: 52px;
+      display: block;
     }
 
     .sobre-box-title {
@@ -351,6 +357,12 @@
     .servicio-icon {
       font-size: 2.5rem;
       margin-bottom: 1.2rem;
+      display: block;
+      color: var(--gold);
+    }
+    .servicio-icon svg {
+      width: 42px;
+      height: 42px;
       display: block;
     }
 
@@ -463,6 +475,11 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 1.1rem;
       flex-shrink: 0;
+      color: var(--gold);
+    }
+    .contacto-item-icon svg {
+      width: 20px;
+      height: 20px;
     }
 
     .contacto-item-text strong {
@@ -555,6 +572,8 @@
 
     .footer-links {
       display: flex; gap: 2rem; list-style: none;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .footer-links a {
@@ -562,16 +581,56 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(245,240,232,0.4);
+      color: rgba(245,240,232,0.55);
       text-decoration: none;
       transition: color 0.3s;
     }
     .footer-links a:hover { color: var(--gold); }
 
     .footer-copy {
-      font-size: 0.72rem;
-      color: rgba(245,240,232,0.25);
-      letter-spacing: 0.05em;
+      font-size: 0.78rem;
+      color: rgba(245,240,232,0.55);
+      letter-spacing: 0.04em;
+      line-height: 1.7;
+      max-width: 90%;
+    }
+    .footer-copy a {
+      color: var(--gold) !important;
+      text-decoration: none !important;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+    .footer-copy a:hover { opacity: 1; }
+    .footer-copy .footer-sep {
+      color: rgba(201,168,76,0.4);
+      margin: 0 0.5rem;
+    }
+
+    @media (max-width: 600px) {
+      footer {
+        padding: 2.5rem 6%;
+        gap: 1.25rem;
+      }
+      .footer-logo {
+        font-size: 1.05rem;
+      }
+      .footer-links {
+        gap: 1rem 1.5rem;
+      }
+      .footer-links a {
+        font-size: 0.7rem;
+      }
+      .footer-copy {
+        font-size: 0.75rem;
+        line-height: 1.8;
+      }
+      .footer-copy .footer-sep {
+        display: block;
+        height: 0.5rem;
+        margin: 0;
+        overflow: hidden;
+        visibility: hidden;
+      }
     }
 
     /* ─── GOLD DIVIDER ─── */
