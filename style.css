@@ -1144,8 +1144,8 @@
 
     /* ─── SCROLL REVEAL ─── */
     .reveal {
-      opacity: 0;
-      transform: translateY(30px);
+      opacity: 1;
+      transform: none;
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
     .reveal.visible {
@@ -1426,3 +1426,8 @@
       margin-top: 2rem;
       justify-content: flex-end;
     }
+
+/* ─── PREMIUM HERO VISUAL / NO-IMAGE BRAND MARK ─── */
+.hero-visual{width:min(720px,92vw);margin:3rem auto 0;padding:1.5rem;position:relative;border:1px solid rgba(201,168,76,.18);background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(255,255,255,.015));overflow:hidden;animation:fadeUp 1s ease 1s both}.hero-visual::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(232,201,106,.16),transparent 32%),linear-gradient(90deg,transparent,rgba(201,168,76,.06),transparent);pointer-events:none}.truck-mark{position:relative;z-index:1;color:rgba(232,201,106,.88);max-width:360px;margin:0 auto;filter:drop-shadow(0 12px 28px rgba(201,168,76,.18))}.route-line{position:absolute;left:8%;right:8%;top:50%;border-top:1px dashed rgba(201,168,76,.35)}.hero-visual-note{position:relative;z-index:1;margin-top:1rem;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,240,232,.48)}.social-disabled{opacity:.38;cursor:not-allowed;pointer-events:none}.contacto-form{display:block}
+@media (max-width:600px){.hero-visual{margin-top:2rem;padding:1rem}.hero-visual-note{font-size:.62rem;line-height:1.6}.whatsapp-float{right:1rem;bottom:1rem}.back-to-top{right:1rem;bottom:5rem}.toast{width:calc(100vw - 2rem);text-align:center;white-space:normal}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
