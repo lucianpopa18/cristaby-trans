@@ -197,34 +197,69 @@ function showToast(msg, isError = false) {
   setTimeout(() => toast.classList.remove('show'), 3500);
 }
 
-// Form validation + submit
-document.querySelector('.btn-submit').addEventListener('click', () => {
-  const fields = [
-    { el: document.querySelector('input[type="text"]'), msg: 'Introduce tu nombre' },
-    { el: document.querySelector('input[type="email"]'), msg: 'Email no válido', validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
-    { el: document.querySelector('select'), msg: 'Selecciona un servicio', validate: v => v !== '' },
+// WhatsApp quote form
+const WHATSAPP_NUMBER = '34000000000'; // TODO: înlocuiește cu numărul real, fără + sau spații
+const quoteForm = document.getElementById('quoteForm');
+const submitQuote = document.querySelector('.btn-submit');
+
+function setFieldError(el, message = '') {
+  const group = el.closest('.form-group');
+  let errEl = group.querySelector('.form-error-msg');
+  if (!errEl) {
+    errEl = document.createElement('span');
+    errEl.className = 'form-error-msg';
+    group.appendChild(errEl);
+  }
+  el.classList.toggle('error', Boolean(message));
+  group.classList.toggle('invalid', Boolean(message));
+  errEl.textContent = message;
+}
+
+function cleanValue(id) {
+  return document.getElementById(id)?.value.trim() || '';
+}
+
+submitQuote.addEventListener('click', () => {
+  const requiredFields = [
+    { el: document.getElementById('quoteName'), msg: 'Introduce tu nombre' },
+    { el: document.getElementById('quotePhone'), msg: 'Introduce tu teléfono' },
+    { el: document.getElementById('quoteService'), msg: 'Selecciona un servicio', validate: v => v !== '' },
   ];
 
   let valid = true;
-  fields.forEach(f => {
-    const group = f.el.closest('.form-group');
-    let errEl = group.querySelector('.form-error-msg');
-    if (!errEl) {
-      errEl = document.createElement('span');
-      errEl.className = 'form-error-msg';
-      group.appendChild(errEl);
-    }
+  requiredFields.forEach(f => {
     const val = f.el.value.trim();
     const ok = f.validate ? f.validate(val) : val.length > 0;
-    f.el.classList.toggle('error', !ok);
-    group.classList.toggle('invalid', !ok);
-    errEl.textContent = f.msg;
+    setFieldError(f.el, ok ? '' : f.msg);
     if (!ok) valid = false;
   });
 
-  if (valid) {
-    showToast('✓ Solicitud enviada — te contactamos en menos de 24h');
+  const email = cleanValue('quoteEmail');
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    setFieldError(document.getElementById('quoteEmail'), 'Email no válido');
+    valid = false;
   } else {
-    showToast('Completa los campos obligatorios', true);
+    setFieldError(document.getElementById('quoteEmail'), '');
   }
+
+  if (!valid) {
+    showToast('Completa los campos obligatorios', true);
+    return;
+  }
+
+  const lines = [
+    'Hola, quiero solicitar presupuesto para:',
+    '',
+    `Servicio: ${cleanValue('quoteService')}`,
+    `Nombre: ${cleanValue('quoteName')}`,
+    `Teléfono: ${cleanValue('quotePhone')}`,
+    email ? `Email: ${email}` : null,
+    cleanValue('quoteLocation') ? `Localidad / obra: ${cleanValue('quoteLocation')}` : null,
+    cleanValue('quoteDate') ? `Fecha aproximada: ${cleanValue('quoteDate')}` : null,
+    cleanValue('quoteMessage') ? `Detalles: ${cleanValue('quoteMessage')}` : null,
+  ].filter(Boolean);
+
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+  window.open(whatsappUrl, '_blank', 'noopener');
+  showToast('✓ Abriendo WhatsApp con tu solicitud preparada');
 });
